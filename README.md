@@ -6,7 +6,7 @@ A primeira dobra inclui uma visualização conceitual de rede neural em Canvas, 
 
 ## Executar localmente
 
-Requisitos: Node.js 20 ou superior.
+Requisitos: Node.js 22.18.0 (versão usada também no build do Render).
 
 ```bash
 npm install
@@ -22,7 +22,21 @@ npm run build
 npm run preview
 ```
 
-A pasta `dist/` pode ser publicada na Vercel, Netlify, Cloudflare Pages ou hospedagem estática. Build command: `npm run build`; output directory: `dist`.
+A pasta `dist/` contém o site estático gerado pelo Vite.
+
+## Publicar no Render
+
+O arquivo `render.yaml` configura um **Static Site** com `npm ci && npm run build` e diretório de publicação `dist`. O arquivo `.node-version` fixa a versão do Node.js usada no build.
+
+1. Envie este projeto para um repositório Git acessível pelo Render.
+2. No painel do Render, crie um **Blueprint** a partir do repositório. O Render lerá `render.yaml` na raiz.
+3. Na criação, informe `VITE_COMPANY_NAME` (nome exibido no site) e `VITE_CONTACT_EMAIL` (e-mail público de contato). Essas variáveis são incorporadas aos arquivos do site durante o build; não coloque segredos em variáveis `VITE_`.
+4. Revise o título e as descrições em `index.html` para refletirem a marca antes da publicação definitiva. O nome configurado via variável não altera esses metadados automaticamente.
+5. Após o deploy, abra a URL `onrender.com` fornecida pelo Render e confira a navegação, o favicon e o contato. Para usar um domínio próprio, configure-o no painel do serviço e siga as instruções de DNS do Render.
+
+Também é possível criar um **Static Site** manualmente com build command `npm ci && npm run build`, publish directory `dist` e as mesmas variáveis de ambiente. Se alterar qualquer variável `VITE_` depois, faça um novo deploy para atualizar os arquivos publicados.
+
+O formulário apenas prepara uma mensagem `mailto:` no aplicativo de e-mail do visitante. O Render não fornece envio automático para esse formulário.
 
 ## Personalizar
 

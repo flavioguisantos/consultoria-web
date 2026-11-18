@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: consultoria-digital
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: VITE_COMPANY_NAME
+        sync: false
+      - key: VITE_CONTACT_EMAIL
+        sync: false
