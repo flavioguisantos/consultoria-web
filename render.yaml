@@ -4,6 +4,10 @@ services:
     runtime: static
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /casos/*
+        destination: /index.html
     envVars:
       - key: VITE_COMPANY_NAME
         sync: false

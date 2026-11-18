@@ -24,6 +24,12 @@ npm run preview
 
 A pasta `dist/` contém o site estático gerado pelo Vite.
 
+## Casos de uso
+
+Os dez cards da seção **Onde atuamos** abrem páginas em `/casos/<segmento>`. Cada página apresenta um projeto conceitual com desafio, fluxograma, arquitetura de referência e interface ilustrativa. Esses exemplos não são cases realizados nem aplicações funcionais.
+
+Os textos e dados das páginas ficam em `src/cases.js`; a apresentação compartilhada fica em `src/CasePage.jsx` e `src/case-page.css`. Para testar uma URL diretamente, por exemplo, abra `/casos/industria` no servidor local. No Render, a regra de rewrite em `render.yaml` permite acessar e atualizar essas URLs sem passar pela página inicial.
+
 ## Publicar no Render
 
 O arquivo `render.yaml` configura um **Static Site** com `npm ci && npm run build` e diretório de publicação `dist`. O arquivo `.node-version` fixa a versão do Node.js usada no build.
