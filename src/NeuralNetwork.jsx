@@ -11,21 +11,19 @@ function seededRandom(seed) {
 function createGraph(width, height) {
   const random = seededRandom(74129);
   const small = width < 460;
-  const count = small ? 96 : 310;
+  const count = small ? 288 : 930;
   const nodes = Array.from({ length: count }, (_, index) => {
     const angle = random() * Math.PI * 2;
     const distance = Math.sqrt(random());
     return {
       x: width * (0.5 + Math.cos(angle) * distance * 0.53),
       y: height * (0.5 + Math.sin(angle) * distance * 0.47),
-      phase: random() * Math.PI * 2,
-      speed: 0.3 + random() * 0.5,
-      size: index % 19 === 0 ? 2.5 : 0.75 + random() * 1.1,
+      size: index % 37 === 0 ? 2.3 : 0.45 + random() * 0.85,
       tint: index % 11 === 0 ? 'lime' : index % 7 === 0 ? 'violet' : 'cyan',
     };
   });
   const edges = [];
-  const maxDistance = small ? 86 : 112;
+  const maxDistance = small ? 62 : 78;
   for (let a = 0; a < nodes.length; a += 1) {
     const neighbors = [];
     for (let b = 0; b < nodes.length; b += 1) {
@@ -38,7 +36,7 @@ function createGraph(width, height) {
       if (a < neighbor.b) edges.push([a, neighbor.b, neighbor.distance]);
     }
   }
-  return { nodes, edges };
+  return { nodes, edges, flowEdges: edges.filter((_, index) => index % 37 === 0) };
 }
 
 export default function NeuralNetwork() {
@@ -58,6 +56,72 @@ export default function NeuralNetwork() {
     let lastFrame = 0;
     let visible = true;
 
+    let background;
+    let paths = [];
+
+    function pointOnCurve(path, progress) {
+      const inverse = 1 - progress;
+      return {
+        x: inverse ** 3 * path.start.x + 3 * inverse ** 2 * progress * path.controlA.x + 3 * inverse * progress ** 2 * path.controlB.x + progress ** 3 * path.end.x,
+        y: inverse ** 3 * path.start.y + 3 * inverse ** 2 * progress * path.controlA.y + 3 * inverse * progress ** 2 * path.controlB.y + progress ** 3 * path.end.y,
+      };
+    }
+
+    function createAgentPaths() {
+      const center = { x: width * 0.5, y: height * 0.5 };
+      const agents = [
+        { x: 0.2, y: 0.21 },
+        { x: 0.82, y: 0.34 },
+        { x: 0.78, y: 0.77 },
+      ];
+      paths = agents.map((agent, index) => {
+        const start = { x: width * agent.x, y: height * agent.y };
+        const bend = (index - 1) * height * 0.1;
+        return {
+          start,
+          controlA: { x: start.x + (center.x - start.x) * 0.37, y: start.y + bend },
+          controlB: { x: center.x + (start.x - center.x) * 0.32, y: center.y - bend * 0.5 },
+          end: center,
+        };
+      });
+    }
+
+    function paintBackground(ratio) {
+      background = document.createElement('canvas');
+      background.width = canvas.width;
+      background.height = canvas.height;
+      const base = background.getContext('2d');
+      base.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+      const glow = base.createRadialGradient(width * 0.5, height * 0.5, 10, width * 0.5, height * 0.5, width * 0.55);
+      glow.addColorStop(0, 'rgba(42, 226, 215, .14)');
+      glow.addColorStop(0.44, 'rgba(73, 85, 198, .08)');
+      glow.addColorStop(1, 'rgba(6, 14, 31, 0)');
+      base.fillStyle = glow;
+      base.fillRect(0, 0, width, height);
+
+      for (const [a, b, distance] of graph.edges) {
+        const start = graph.nodes[a];
+        const end = graph.nodes[b];
+        const strength = 1 - distance / (width < 460 ? 62 : 78);
+        base.strokeStyle = 'rgba(101, 208, 226, ' + (0.035 + strength * 0.11) + ')';
+        base.lineWidth = 0.6;
+        base.beginPath();
+        base.moveTo(start.x, start.y);
+        base.lineTo(end.x, end.y);
+        base.stroke();
+      }
+
+      graph.nodes.forEach(node => {
+        base.fillStyle = node.tint === 'lime' ? '#b9f676' : node.tint === 'violet' ? '#9e95ff' : '#76dae9';
+        base.globalAlpha = node.size > 2 ? 0.85 : 0.42;
+        base.beginPath();
+        base.arc(node.x, node.y, node.size, 0, Math.PI * 2);
+        base.fill();
+      });
+      base.globalAlpha = 1;
+    }
+
     function resize() {
       const bounds = stage.getBoundingClientRect();
       width = Math.max(1, Math.round(bounds.width));
@@ -67,63 +131,56 @@ export default function NeuralNetwork() {
       canvas.height = Math.round(height * ratio);
       context.setTransform(ratio, 0, 0, ratio, 0, 0);
       graph = createGraph(width, height);
+      createAgentPaths();
+      paintBackground(ratio);
       draw(0);
     }
 
     function draw(time) {
-      if (!graph) return;
+      if (!graph || !background) return;
       const seconds = time / 1000;
       context.clearRect(0, 0, width, height);
-
-      const glow = context.createRadialGradient(width * 0.51, height * 0.5, 12, width * 0.51, height * 0.5, width * 0.53);
-      glow.addColorStop(0, 'rgba(43, 225, 211, .12)');
-      glow.addColorStop(0.45, 'rgba(71, 68, 190, .075)');
-      glow.addColorStop(1, 'rgba(6, 14, 31, 0)');
-      context.fillStyle = glow;
-      context.fillRect(0, 0, width, height);
-
-      const positions = graph.nodes.map(node => ({
-        x: node.x + Math.sin(seconds * node.speed + node.phase) * 2.7,
-        y: node.y + Math.cos(seconds * node.speed * 0.8 + node.phase) * 2.7,
-      }));
-
-      for (const [a, b, distance] of graph.edges) {
-        const start = positions[a];
-        const end = positions[b];
-        const strength = 1 - distance / (width < 460 ? 86 : 112);
-        context.strokeStyle = `rgba(96, 204, 223, ${0.08 + strength * 0.2})`;
-        context.lineWidth = 0.7;
-        context.beginPath();
-        context.moveTo(start.x, start.y);
-        context.lineTo(end.x, end.y);
-        context.stroke();
-      }
+      context.drawImage(background, 0, 0, width, height);
 
       context.save();
-      context.shadowBlur = 16;
-      graph.edges.forEach(([a, b], index) => {
-        if (index % 19 !== 0) return;
+      context.shadowBlur = 12;
+      context.shadowColor = '#b8ff7a';
+      context.fillStyle = '#caff94';
+      graph.flowEdges.forEach(([a, b], index) => {
+        const start = graph.nodes[a];
+        const end = graph.nodes[b];
         const progress = (seconds * (0.13 + (index % 5) * 0.025) + index * 0.17) % 1;
-        const x = positions[a].x + (positions[b].x - positions[a].x) * progress;
-        const y = positions[a].y + (positions[b].y - positions[a].y) * progress;
-        context.shadowColor = '#b8ff7a';
-        context.fillStyle = '#caff94';
         context.beginPath();
-        context.arc(x, y, 1.7, 0, Math.PI * 2);
+        context.arc(start.x + (end.x - start.x) * progress, start.y + (end.y - start.y) * progress, 1.55, 0, Math.PI * 2);
         context.fill();
       });
       context.restore();
 
-      for (let index = 0; index < graph.nodes.length; index += 1) {
-        const node = graph.nodes[index];
-        const position = positions[index];
-        context.fillStyle = node.tint === 'lime' ? '#b9f676' : node.tint === 'violet' ? '#9e95ff' : '#76dae9';
-        context.globalAlpha = node.size > 2 ? 0.95 : 0.55;
+      paths.forEach((path, index) => {
+        context.save();
         context.beginPath();
-        context.arc(position.x, position.y, node.size, 0, Math.PI * 2);
-        context.fill();
-      }
-      context.globalAlpha = 1;
+        context.moveTo(path.start.x, path.start.y);
+        context.bezierCurveTo(path.controlA.x, path.controlA.y, path.controlB.x, path.controlB.y, path.end.x, path.end.y);
+        context.setLineDash([5, 12]);
+        context.lineDashOffset = -seconds * 16;
+        context.shadowBlur = 10;
+        context.shadowColor = '#58d9e8';
+        context.strokeStyle = 'rgba(139, 234, 242, .76)';
+        context.lineWidth = 1.7;
+        context.stroke();
+        context.setLineDash([]);
+        context.shadowBlur = 13;
+        context.shadowColor = index === 1 ? '#bdacff' : '#b4ec62';
+        context.fillStyle = index === 1 ? '#c4b8ff' : '#caff94';
+        for (let packet = 0; packet < 3; packet += 1) {
+          const progress = (seconds * (0.15 + index * 0.025) + packet / 3 + index * 0.19) % 1;
+          const position = pointOnCurve(path, progress);
+          context.beginPath();
+          context.arc(position.x, position.y, 2.8, 0, Math.PI * 2);
+          context.fill();
+        }
+        context.restore();
+      });
     }
 
     function animate(time) {

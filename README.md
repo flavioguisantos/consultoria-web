@@ -2,7 +2,7 @@
 
 Landing page institucional responsiva em **React 18 + Vite 6**, com CSS próprio e ícones Lucide. Conteúdo em português do Brasil, com foco em software, inteligência artificial e automação.
 
-A primeira dobra inclui uma visualização conceitual de rede neural desenhada em Canvas. A animação pausa fora da tela e é desativada para quem prefere movimento reduzido.
+A primeira dobra inclui uma visualização conceitual de rede neural em Canvas, com agentes de pesquisa, planejamento e execução ligados a um orquestrador. O grafo usa 930 nós no desktop e 288 no celular. As conexões são pré-renderizadas para preservar o desempenho; a animação pausa fora da tela e é desativada para quem prefere movimento reduzido.
 
 ## Executar localmente
 

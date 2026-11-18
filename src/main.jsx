@@ -70,11 +70,11 @@ function App() {
             <NeuralNetwork />
             <div className="neural-orbit orbit-one" />
             <div className="neural-orbit orbit-two" />
-            <div className="neural-core"><span className="neural-core-inner"><BrainCircuit size={48} strokeWidth={1.2} /><strong>IA</strong></span></div>
-            <span className="neural-label label-data">01 <b>DADOS</b></span>
-            <span className="neural-label label-models">02 <b>MODELOS</b></span>
-            <span className="neural-label label-action">03 <b>AÇÃO</b></span>
-            <span className="neural-caption">GRAFO DE CONEXÕES · VISUALIZAÇÃO CONCEITUAL</span>
+            <div className="neural-core"><span className="neural-core-inner"><BrainCircuit size={43} strokeWidth={1.2} /><strong>IA</strong><small>ORQUESTRADOR</small></span></div>
+            <div className="agent-card agent-research"><span>AGENTE 01</span><strong>PESQUISA</strong><small><i /> analisando contexto</small></div>
+            <div className="agent-card agent-plan"><span>AGENTE 02</span><strong>PLANEJAMENTO</strong><small><i /> definindo caminhos</small></div>
+            <div className="agent-card agent-execute"><span>AGENTE 03</span><strong>EXECUÇÃO</strong><small><i /> conectando soluções</small></div>
+            <span className="neural-caption">REDE DE AGENTES · VISUALIZAÇÃO CONCEITUAL</span>
           </div>
         </div>
         <div className="container hero-bottom"><span>ENGENHARIA PARA O PRÓXIMO PASSO</span><span className="hero-bottom-rule" /><a href="#servicos">EXPLORAR SOLUÇÕES <ChevronDown size={16} /></a></div>
