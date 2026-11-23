@@ -29,8 +29,19 @@ const steps = [
 ];
 const number = index => String(index + 1).padStart(2, '0');
 
-function Brand() {
-  return <a className="brand" href="#inicio" aria-label={`${COMPANY.name}, voltar ao início`}><span className="brand-mark" aria-hidden="true"><Layers3 size={22} strokeWidth={1.8} /></span><span>{COMPANY.name}<small>ENGENHARIA + INTELIGÊNCIA</small></span></a>;
+function Brand({ fullLogo = false }) {
+  return (
+    <a className={fullLogo ? 'brand footer-brand' : 'brand'} href="#inicio" aria-label={`${COMPANY.name}, voltar ao início`}>
+      {fullLogo ? (
+        <img src="/despartech-logo.webp" alt="" width="640" height="360" loading="lazy" />
+      ) : (
+        <>
+          <img className="brand-mark" src="/despartech-icon.png" alt="" width="96" height="96" />
+          <span>{COMPANY.name}<small>ENGENHARIA + INTELIGÊNCIA</small></span>
+        </>
+      )}
+    </a>
+  );
 }
 
 function App() {
@@ -91,7 +102,7 @@ function App() {
       <section id="segmentos" className="sectors section"><div className="container"><div className="section-top"><div><span className="section-label">ONDE ATUAMOS</span><h2>Cada setor tem um desafio.<br /><em>Cada solução, um contexto.</em></h2></div><p>Explore projetos conceituais com fluxo, arquitetura e uma interface ilustrativa para cada segmento.</p></div><div className="sector-list">{cases.map((sector, index) => <a className="sector-card" href={`/casos/${sector.slug}`} key={sector.slug}><div className="sector-card-top"><span>{number(index)} / SEGMENTO</span><ArrowDownRight size={18} aria-hidden="true" /></div><h3>{sector.sector}</h3><strong>{sector.title}</strong><p>{sector.summary}</p><span className="sector-card-link">Explorar projeto <ArrowUpRight size={15} aria-hidden="true" /></span></a>)}</div></div></section>
       <section id="contato" className="contact section"><div className="container contact-grid"><div className="contact-intro"><span className="section-label">PRÓXIMO PASSO</span><h2>Vamos tirar sua ideia<br /><em>do papel?</em></h2><p>Conte o que você quer construir, melhorar ou automatizar. Uma boa conversa é o começo de uma solução bem pensada.</p>{COMPANY.email && <a className="contact-email" href={`mailto:${COMPANY.email}`}><Mail size={18} />{COMPANY.email}</a>}<div className="contact-aside">ATENDIMENTO REMOTO EM TODO O BRASIL <ArrowUpRight size={16} /></div></div>{COMPANY.email ? <form className="contact-form" onSubmit={submit}><span className="form-kicker">INICIE UMA CONVERSA <span>↗</span></span><div className="form-row"><label>Seu nome<input required autoComplete="name" value={form.name} onChange={event => update('name', event.target.value)} placeholder="Como podemos chamar você?" /></label><label>Seu e-mail<input type="email" required autoComplete="email" value={form.email} onChange={event => update('email', event.target.value)} placeholder="voce@empresa.com.br" /></label></div><div className="form-row"><label>Empresa<input autoComplete="organization" value={form.company} onChange={event => update('company', event.target.value)} placeholder="Nome da empresa" /></label><label>Área de interesse<select value={form.service} onChange={event => update('service', event.target.value)}><option value="">Selecione uma solução</option>{services.map(service => <option key={service.title} value={service.title}>{service.title}</option>)}<option value="Outro projeto">Outro projeto</option></select></label></div><label>Conte sobre seu projeto<textarea required rows="5" value={form.message} onChange={event => update('message', event.target.value)} placeholder="O que você gostaria de desenvolver ou automatizar?" /></label><button className="btn btn-primary submit" type="submit">Preparar e-mail <ArrowUpRight size={18} /></button><p className="form-note">Seu aplicativo de e-mail abrirá com a mensagem preenchida. Confirme o envio por lá.</p>{emailPrepared && <p className="form-feedback" role="status">Confira a mensagem no seu aplicativo de e-mail para concluir o envio.</p>}</form> : <div className="contact-pending" aria-label="Canal de contato em preparação"><Mail size={31} strokeWidth={1.4} /><span>CANAL DE CONTATO</span><h3>Em breve, vamos conversar.</h3><p>Estamos preparando um canal direto para receber novos projetos.</p></div>}</div></section>
     </main>
-    <footer className="footer"><div className="container footer-top"><div><Brand /><p>Engenharia, inteligência e visão de negócio para criar o próximo passo.</p></div><div><h3>Explore</h3><a href="#servicos">Soluções</a><a href="#diferenciais">Abordagem</a><a href="#processo">Processo</a><a href="#segmentos">Segmentos</a></div><div><h3>Contato</h3><a href="#contato">{COMPANY.email ? "Vamos conversar" : "Contato em breve"}</a>{COMPANY.email && <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>}</div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} {COMPANY.name}. Todos os direitos reservados.</span><a href="#inicio">VOLTAR AO TOPO ↑</a></div></footer>
+    <footer className="footer"><div className="container footer-top"><div><Brand fullLogo /><p>Engenharia, inteligência e visão de negócio para criar o próximo passo.</p></div><div><h3>Explore</h3><a href="#servicos">Soluções</a><a href="#diferenciais">Abordagem</a><a href="#processo">Processo</a><a href="#segmentos">Segmentos</a></div><div><h3>Contato</h3><a href="#contato">{COMPANY.email ? "Vamos conversar" : "Contato em breve"}</a>{COMPANY.email && <a href={`mailto:${COMPANY.email}`}>{COMPANY.email}</a>}</div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} {COMPANY.name}. Todos os direitos reservados.</span><a href="#inicio">VOLTAR AO TOPO ↑</a></div></footer>
   </>;
 }
 

@@ -25,7 +25,10 @@ export default function CasePage({ caseStudy, companyName, contactEmail }) {
   return <div className="case-page">
     <header className="case-header">
       <div className="container case-nav">
-        <a className="case-brand" href="/" aria-label={`${companyName}, página inicial`}><span className="brand-mark" aria-hidden="true"><Layers3 size={22} strokeWidth={1.8} /></span><span>{companyName}<small>ENGENHARIA + INTELIGÊNCIA</small></span></a>
+        <a className="case-brand" href="/" aria-label={`${companyName}, página inicial`}>
+          <img className="brand-mark" src="/despartech-icon.png" alt="" width="96" height="96" />
+          <span>{companyName}<small>ENGENHARIA + INTELIGÊNCIA</small></span>
+        </a>
         <nav aria-label="Navegação do caso"><a href="#fluxo">Fluxo</a><a href="#arquitetura">Arquitetura</a><a href="#interface">Interface</a></nav>
         <a className="case-back" href="/#segmentos"><ArrowLeft size={16} /> Todos os casos</a>
       </div>

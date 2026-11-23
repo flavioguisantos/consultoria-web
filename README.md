@@ -48,7 +48,7 @@ O formulário apenas prepara uma mensagem `mailto:` no aplicativo de e-mail do v
 
 1. Copie `.env.example` para `.env.local` e preencha `VITE_COMPANY_NAME` e `VITE_CONTACT_EMAIL`.
 2. Atualize o título e os metadados em `index.html` com a marca definitiva.
-3. Substitua o símbolo genérico em `src/main.jsx` e `public/favicon.svg` pelo logotipo definitivo.
+3. Para trocar as imagens da marca, substitua `public/despartech-logo.webp` (logo completo) e `public/despartech-icon.png` (cabeçalho e favicon).
 4. Edite os serviços e segmentos em `src/main.jsx`, se necessário.
 5. Ajuste as cores e a tipografia em `src/styles.css`.
 
@@ -65,5 +65,4 @@ Abra esta pasta no VS Code com Codex. O arquivo `AGENTS.md` contém orientaçõe
 ## Observações
 
 - Não foram incluídos depoimentos, clientes, certificações ou números fictícios.
-- O símbolo genérico pode ser substituído pelo logotipo definitivo antes da publicação.
 - Fontes externas são carregadas do Google Fonts; se necessário, hospede-as localmente.

@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Depurar DESPARTECH AI Solutions no Chrome",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/node_modules/vite/bin/vite.js",
+      "args": ["--host", "127.0.0.1"],
+      "console": "internalConsole",
+      "outputCapture": "std",
+      "env": {
+        "NO_COLOR": "1"
+      },
+      "serverReadyAction": {
+        "pattern": "Local:\\s+(http://127\\.0\\.0\\.1:[0-9]+/)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome",
+        "webRoot": "${workspaceFolder}",
+        "killOnServerStop": true
+      }
+    }
+  ]
+}

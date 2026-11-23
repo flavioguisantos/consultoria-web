@@ -20,7 +20,7 @@ p{line-height:1.78}
 .nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:30px}
 .brand{display:inline-flex;align-items:center;gap:12px;color:#fff;font-family:Manrope,sans-serif;font-size:17px;font-weight:800;letter-spacing:-.035em;white-space:nowrap}
 .brand small{display:block;margin-top:2px;font-family:'DM Sans',sans-serif;font-size:8px;font-weight:800;letter-spacing:.22em;color:#9ab2b8}
-.brand-mark{width:41px;height:41px;display:grid;place-items:center;background:#b4ec62;color:#102426;border-radius:3px}
+.brand-mark{width:41px;height:41px;display:block;flex:none;border-radius:4px}
 .nav-links{display:flex;align-items:center;gap:31px}
 .nav-links a{color:#c4d1d0;font-size:12px;font-weight:700;transition:color .2s}
 .nav-links a:hover,.footer a:hover{color:#b4ec62}
@@ -156,6 +156,8 @@ p{line-height:1.78}
 .contact-pending p{color:#5c705f;max-width:300px;font-size:14px;margin:10px 0 0}
 .footer{background:#0b1c27;color:#acbfc0;padding:67px 0 0}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:55px;padding-bottom:70px}
+.footer-brand{width:min(100%,300px)}
+.footer-brand img{display:block;width:100%;height:auto;border-radius:4px}
 .footer-top p{font-size:13px;max-width:300px;color:#849e9f;margin:20px 0 0}
 .footer-top>div:not(:first-child){display:flex;flex-direction:column;gap:13px}
 .footer h3{font-size:13px;color:#f6faf3;margin:0 0 7px}
