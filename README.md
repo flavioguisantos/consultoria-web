@@ -52,7 +52,7 @@ O formulário apenas prepara uma mensagem `mailto:` no aplicativo de e-mail do v
 4. Edite os serviços e segmentos em `src/main.jsx`, se necessário.
 5. Ajuste as cores e a tipografia em `src/styles.css`.
 
-Enquanto o nome não for definido, o site usa o nome descritivo “Consultoria Digital”. Sem um e-mail configurado, a seção de contato exibe uma mensagem de preparação e não oferece um formulário inoperante.
+O nome padrão do site é **DESPARTECH AI Solutions**. Sem um e-mail configurado, a seção de contato exibe uma mensagem de preparação e não oferece um formulário inoperante.
 
 ## Formulário
 
@@ -65,5 +65,5 @@ Abra esta pasta no VS Code com Codex. O arquivo `AGENTS.md` contém orientaçõe
 ## Observações
 
 - Não foram incluídos depoimentos, clientes, certificações ou números fictícios.
-- O nome, os metadados e o símbolo genéricos devem ser substituídos antes da publicação definitiva.
+- O símbolo genérico pode ser substituído pelo logotipo definitivo antes da publicação.
 - Fontes externas são carregadas do Google Fonts; se necessário, hospede-as localmente.

@@ -6,6 +6,7 @@
 .case-brand small{display:block;margin-top:2px;font-family:'DM Sans',sans-serif;font-size:8px;letter-spacing:.2em;color:#9ab2b8}
 .case-nav nav{display:flex;gap:27px;color:#c6d4d3;font-size:12px;font-weight:700}
 .case-nav nav a:hover,.case-back:hover,.case-footer a:hover{color:#b4ec62}
+@media(min-width:701px) and (max-width:760px){.case-header .case-nav{width:calc(100% - 36px)}}
 .case-back{display:inline-flex;align-items:center;gap:8px;color:#b4ec62;font-size:12px;font-weight:800;white-space:nowrap}
 .case-hero{background:radial-gradient(circle at 82% 48%,#184051 0%,#0a2430 38%,#081824 83%);color:#fff;overflow:hidden}
 .case-hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);align-items:center;gap:10%;min-height:630px;padding-block:70px}
