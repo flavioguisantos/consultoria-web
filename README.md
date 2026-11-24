@@ -52,11 +52,11 @@ O formulário apenas prepara uma mensagem `mailto:` no aplicativo de e-mail do v
 4. Edite os serviços e segmentos em `src/main.jsx`, se necessário.
 5. Ajuste as cores e a tipografia em `src/styles.css`.
 
-O nome padrão do site é **DESPARTECH AI Solutions**. Sem um e-mail configurado, a seção de contato exibe uma mensagem de preparação e não oferece um formulário inoperante.
+O nome padrão do site é **DESPARTECH AI Solutions** e o e-mail de contato padrão é **comercial@despartech.com.br**.
 
 ## Formulário
 
-Com `VITE_CONTACT_EMAIL` configurado, o formulário usa `mailto:` para preparar a mensagem no aplicativo de e-mail do visitante. **Não há backend nem envio automático.** O visitante precisa confirmar o envio no aplicativo de e-mail. Para envio direto pelo site, integrar um backend ou serviço seguro, com validação no servidor e proteção antispam. Avaliar os requisitos de privacidade e LGPD antes de coletar ou armazenar dados.
+O formulário usa `mailto:` para preparar a mensagem no aplicativo de e-mail do visitante. **Não há backend nem envio automático.** O visitante precisa confirmar o envio no aplicativo de e-mail. Para envio direto pelo site, integrar um backend ou serviço seguro, com validação no servidor e proteção antispam. Avaliar os requisitos de privacidade e LGPD antes de coletar ou armazenar dados.
 
 ## Codex
 

@@ -8,7 +8,7 @@ import { cases } from './cases.js';
 
 const COMPANY = {
   name: import.meta.env.VITE_COMPANY_NAME?.trim() || 'DESPARTECH AI Solutions',
-  email: import.meta.env.VITE_CONTACT_EMAIL?.trim() || '',
+  email: import.meta.env.VITE_CONTACT_EMAIL?.trim() || 'comercial@despartech.com.br',
 };
 
 const services = [
